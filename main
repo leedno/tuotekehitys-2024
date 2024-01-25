@@ -7,7 +7,7 @@ class StartScreen:
         pass
         # Initialize any resources or variables needed for the start screen
 
-    def update(self):
+    def update(self): 
         pass
         # Update logic for the start screen
 

@@ -1,0 +1,49 @@
+import pygame
+import sys
+from pygame.locals import *
+pygame.init()
+
+clock = pygame.time.Clock()
+width = 960
+height = 600
+#DISPLAYSURF = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+dispSurf = pygame.display.set_mode((width,height))
+#level = pygame.image.load("level_oma.jpg")
+ball_radius = 20
+ball_color = (0, 0, 0)
+ball_pos = [width // 2, height // 2]
+ball_speed = 5
+pygame.display.flip()
+
+while True:
+    pygame.time.delay(5)
+    for event in pygame.event.get():  
+        if event.type == pygame.QUIT: 
+            pygame.quit()
+            sys.exit()
+        if event.type == KEYDOWN:     
+            if event.key == K_ESCAPE: 
+                pygame.quit()
+                sys.exit()
+    keys = pygame.key.get_pressed()
+    
+    # Move the ball based on user input
+    if keys[pygame.K_LEFT]:
+        ball_pos[0] -= ball_speed
+    if keys[pygame.K_RIGHT]:
+        ball_pos[0] += ball_speed
+    if keys[pygame.K_UP]:
+        ball_pos[1] -= ball_speed
+    if keys[pygame.K_DOWN]:
+        ball_pos[1] += ball_speed
+
+    # Update the screen
+    dispSurf.fill((255, 255, 255))  # Fill the screen with a black background
+    pygame.draw.circle(dispSurf, ball_color, (int(ball_pos[0]), int(ball_pos[1])), ball_radius)
+
+
+
+
+    #dispSurf.blit(level, (0,0))
+    pygame.display.flip()
+    clock.tick(20)

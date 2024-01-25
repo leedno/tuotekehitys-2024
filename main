@@ -1,0 +1,71 @@
+import pygame
+import sys
+
+class StartScreen:
+    def __init__(self):
+        rectangle = pygame.Surface((300,50))
+        pass
+        # Initialize any resources or variables needed for the start screen
+
+    def update(self):
+        pass
+        # Update logic for the start screen
+
+    def draw(self, screen):
+        pass
+        # Draw the start screen on the given Pygame surface
+
+    def handle_events(self, events):
+        # Handle events for the start screen, such as button clicks or key presses
+        for event in events:
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    return "game"  # Transition to the game screen
+            elif event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+class GameScreen:
+    def __init__(self):
+        pass
+        # Initialize any resources or variables needed for the game screen
+
+    def update(self):
+        pass
+        # Update logic for the game screen
+
+    def draw(self, screen):
+        pass
+        # Draw the game screen on the given Pygame surface
+
+    def handle_events(self, events):
+        # Handle events for the game screen
+        for event in events:
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    return "start"  # Transition back to the start screen
+            elif event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+def main():
+    pygame.init()
+
+    # Set up the Pygame window
+    screen = pygame.display.set_mode((960, 600))
+    pygame.display.set_caption("Pygame Screen Manager")
+
+    # Create instances of the screens
+    start_screen = StartScreen()
+    game_screen = GameScreen()
+
+    current_screen = "start"
+
+    clock = pygame.time.Clock()
+
+    while True:
+        events = pygame.event.get()
+
+        if current_screen == "start":
+            #next_screen 
+            pass

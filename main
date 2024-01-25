@@ -1,5 +1,6 @@
 import pygame
 import sys
+from pygame.locals import *
 
 class StartScreen:
     def __init__(self):
@@ -9,11 +10,7 @@ class StartScreen:
         pass
 
     def draw(self, screen):
-        # Clear the screen
         screen.fill((255, 255, 255))
-        # Draw the start screen elements
-        pygame.draw.rect(screen, (0, 0, 255), (100, 200, 300, 50))  # Example rectangle
-        # Update the display
         pygame.display.flip()
 
     def handle_events(self, events):
@@ -27,23 +24,43 @@ class StartScreen:
 
 class GameScreen:
     def __init__(self):
-        pass
+        self.clock = pygame.time.Clock()
+        self.width = 960
+        self.height = 600
+        self.dispSurf = pygame.display.set_mode((self.width, self.height))
+        self.ball_radius = 20
+        self.ball_color = (0, 0, 0)
+        self.ball_pos = [self.width // 2, self.height // 2]
+        self.ball_speed = 5
 
     def update(self):
         pass
 
-    def draw(self, screen):
-        screen.fill((0, 0, 0))  # Fill screen with black
+    def draw(self):
+        self.dispSurf.fill((255, 255, 255))  # Fill the screen with a white background
+        pygame.draw.circle(self.dispSurf, self.ball_color, (int(self.ball_pos[0]), int(self.ball_pos[1])), self.ball_radius)
         pygame.display.flip()
 
     def handle_events(self, events):
         for event in events:
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    return "start"
-            elif event.type == pygame.QUIT:
+            if event.type == pygame.QUIT: 
                 pygame.quit()
                 sys.exit()
+            if event.type == KEYDOWN:     
+                if event.key == K_ESCAPE: 
+                    pygame.quit()
+                    sys.exit()
+        keys = pygame.key.get_pressed()
+        
+        # Move the ball based on user input
+        if keys[pygame.K_LEFT]:
+            self.ball_pos[0] -= self.ball_speed
+        if keys[pygame.K_RIGHT]:
+            self.ball_pos[0] += self.ball_speed
+        if keys[pygame.K_UP]:
+            self.ball_pos[1] -= self.ball_speed
+        if keys[pygame.K_DOWN]:
+            self.ball_pos[1] += self.ball_speed
 
 def main():
     pygame.init()
@@ -69,13 +86,9 @@ def main():
                 current_screen = "game"
 
         elif current_screen == "game":
-            screen.fill((0, 0, 0))  # Clear the screen
-            game_screen.draw(screen)
-            transition = game_screen.handle_events(events)
-            if transition == "start":
-                current_screen = "start"
-
-        pygame.display.flip()
+            game_screen.handle_events(events)
+            game_screen.draw()
+        
         clock.tick(60)
 
 if __name__ == "__main__":

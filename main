@@ -1,28 +1,26 @@
 import pygame
 import sys
 
-#kokeilu
-
 class StartScreen:
     def __init__(self):
-        rectangle = pygame.Surface((300,50))
         pass
-        # Initialize any resources or variables needed for the start screen
 
     def update(self): 
         pass
-        # Update logic for the start screen
 
     def draw(self, screen):
-        pass
-        # Draw the start screen on the given Pygame surface
+        # Clear the screen
+        screen.fill((255, 255, 255))
+        # Draw the start screen elements
+        pygame.draw.rect(screen, (0, 0, 255), (100, 200, 300, 50))  # Example rectangle
+        # Update the display
+        pygame.display.flip()
 
     def handle_events(self, events):
-        # Handle events for the start screen, such as button clicks or key presses
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
-                    return "game"  # Transition to the game screen
+                    return "game"
             elif event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
@@ -30,22 +28,19 @@ class StartScreen:
 class GameScreen:
     def __init__(self):
         pass
-        # Initialize any resources or variables needed for the game screen
 
     def update(self):
         pass
-        # Update logic for the game screen
 
     def draw(self, screen):
-        pass
-        # Draw the game screen on the given Pygame surface
+        screen.fill((0, 0, 0))  # Fill screen with black
+        pygame.display.flip()
 
     def handle_events(self, events):
-        # Handle events for the game screen
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    return "start"  # Transition back to the start screen
+                    return "start"
             elif event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
@@ -53,11 +48,9 @@ class GameScreen:
 def main():
     pygame.init()
 
-    # Set up the Pygame window
     screen = pygame.display.set_mode((960, 600))
     pygame.display.set_caption("Pygame Screen Manager")
 
-    # Create instances of the screens
     start_screen = StartScreen()
     game_screen = GameScreen()
 
@@ -69,5 +62,21 @@ def main():
         events = pygame.event.get()
 
         if current_screen == "start":
-            #next_screen 
-            pass
+            screen.fill((255, 255, 255))  # Clear the screen
+            start_screen.draw(screen)
+            transition = start_screen.handle_events(events)
+            if transition == "game":
+                current_screen = "game"
+
+        elif current_screen == "game":
+            screen.fill((0, 0, 0))  # Clear the screen
+            game_screen.draw(screen)
+            transition = game_screen.handle_events(events)
+            if transition == "start":
+                current_screen = "start"
+
+        pygame.display.flip()
+        clock.tick(60)
+
+if __name__ == "__main__":
+    main()

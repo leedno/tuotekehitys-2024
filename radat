@@ -1,0 +1,27 @@
+#creation of borders
+right_border_of_area = pygame.Surface((5, 400))
+top_border_of_area = pygame.Surface((300, 5))
+bottom_border_of_area = pygame.Surface((200, 5))
+left_border_of_the_area = pygame.Surface((5, 295))
+last_border = pygame.Surface((5, 100))
+aim = pygame.Surface((20,20))
+
+#colors
+black = (0,0,0)
+red = (255,0,0)
+
+#coloring of borders
+right_border_of_area.fill(black)
+top_border_of_area.fill(black)
+bottom_border_of_area.fill(black)
+left_border_of_the_area.fill(black)
+last_border.fill(black)
+aim.fill(red)
+
+#placement of borders
+dispSurf.blit(right_border_of_area, (800, 50))
+dispSurf.blit(top_border_of_area, (500, 50))
+dispSurf.blit(bottom_border_of_area, (500, 150))
+dispSurf.blit(left_border_of_the_area, (700, 150))
+dispSurf.blit(last_border, (500, 50))
+dispSurf.blit(aim, (550, 90))

@@ -1,6 +1,8 @@
 import pygame
 import sys
 
+#kokeilu
+
 class StartScreen:
     def __init__(self):
         rectangle = pygame.Surface((300,50))

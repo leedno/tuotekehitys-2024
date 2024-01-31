@@ -67,8 +67,12 @@ speed = [2,2]
 score = 0
 score2 = 0
 
-while True:
+start_screen = True
+end_screen = False
+keys = pygame.key.get_pressed()
 
+while True:
+    uus_peli = False
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -77,7 +81,36 @@ while True:
             if event.key == K_ESCAPE:
                 pygame.quit()
                 sys.exit()
-            
+        #check for mouse clicks
+        if event.type == MOUSEBUTTONDOWN and start_screen:
+            start_screen = False
+        #check if space key has been pressed
+        if event.type == KEYDOWN and end_screen:
+            if event.key == K_SPACE:
+                end_screen = False
+                #return players to starting position
+                player1Area.left = 900
+                player1Area.top = 650
+                player2Area.left = 250
+                player2Area.top = 650
+
+    
+    if start_screen: # start screen
+        dispSurf.fill(black)
+        start_text = font2.render("Click to start", True, white)
+        start_text_rect = start_text.get_rect(center=(width//2, height//2))
+        dispSurf.blit(start_text, start_text_rect)
+        pygame.display.flip()
+        continue
+    
+    if end_screen: # end screen
+        dispSurf.fill(black)
+        start_text = font2.render("Press space to restart or esc to quit", True, white)
+        start_text_rect = start_text.get_rect(center=(width//2, height//2))
+        dispSurf.blit(start_text, start_text_rect)
+        pygame.display.flip()
+        continue
+
 
     ballArea.move_ip(speed)
     
@@ -131,25 +164,25 @@ while True:
         ballArea.left = 600
         ballArea.top = 375
         score2 += 1
-
+    #player 2 moves
     pressings2 = pygame.key.get_pressed()
-    if pressings2[K_a]:
+    if pressings2[K_a] and player2Area.left > 0:
         player2Area.move_ip((-1,0))
-    if pressings2[K_d]:
+    if pressings2[K_d] and player2Area.left < 1150:
         player2Area.move_ip((1,0))
-    if pressings2[K_s]:
+    if pressings2[K_s] and player2Area.top < 650:
         player2Area.move_ip((0,1))
-    if pressings2[K_w]:
+    if pressings2[K_w] and player2Area.top > 0:
         player2Area.move_ip((0,-1))
-
+    #player 1 moves
     pressings1 = pygame.key.get_pressed()
-    if pressings1[K_LEFT]:
+    if pressings1[K_LEFT] and player1Area.left > 0:
         player1Area.move_ip((-1,0))
-    if pressings1[K_RIGHT]:
+    if pressings1[K_RIGHT] and player1Area.left < 1150:
         player1Area.move_ip((1,0))
-    if pressings1[K_DOWN]:
+    if pressings1[K_DOWN] and player1Area.top < 650:
         player1Area.move_ip((0,1))
-    if pressings1[K_UP]:
+    if pressings1[K_UP] and player1Area.top > 0:
         player1Area.move_ip((0,-1))
 
     if score == 3:
@@ -157,16 +190,20 @@ while True:
         dispSurf.blit(player1_win_text, (300, 300))
         pygame.display.flip()
         time.sleep(2)
-        pygame.quit()
-        sys.exit()
+        uus_peli = True
 
     if score2 == 3:
         player2_win_text = font2.render(f"Player 2 WINNER", True, (255, 255, 255))
         dispSurf.blit(player2_win_text, (300, 300))
         pygame.display.flip()
         time.sleep(2)
-        pygame.quit()
-        sys.exit()
+        uus_peli = True
+
+    if uus_peli == True:
+        score = 0
+        score2 = 0
+        end_screen = True
+        continue
     
     dispSurf.blit(footballpitch, (0,0))
     dispSurf.blit(maali, maaliArea)

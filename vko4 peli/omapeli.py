@@ -12,12 +12,13 @@ pygame.display.set_caption("jutix1 futispeli")
 # load images
 font = pygame.font.Font(None, 36)
 font2 = pygame.font.Font(None, 100)
-footballpitch = pygame.image.load("football_pitch.png").convert()
-player1_big = pygame.image.load("player_2.png").convert()
-player2_big = pygame.image.load("player_1.png").convert()
-left_g = pygame.image.load("left_goal.png").convert()
-right_g = pygame.image.load("right_goal.png").convert()
-ball_big = pygame.image.load("ball.png").convert()
+footballpitch = pygame.image.load("football_pitch.png")
+footballpitch = pygame.transform.scale(footballpitch, (1200,750))
+player1_big = pygame.image.load("player_2.png")
+player2_big = pygame.image.load("player_1.png")
+left_g = pygame.image.load("left_goal.png")
+right_g = pygame.image.load("right_goal.png")
+ball_big = pygame.image.load("ball.png")
 
 # RESIZE EVERYTHING
 goal_width = 150  # goal width

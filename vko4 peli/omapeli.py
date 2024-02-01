@@ -75,12 +75,12 @@ left_goalArea.top = screen_height-goal_height
 right_goalArea.left = screen_width-goal_width
 right_goalArea.top = screen_height-goal_height
 rectangleArea.left = goal_width
-rectangleArea.top = screen_height-goal_height
+rectangleArea.top = screen_height-goal_height+20
 rectangle2Area.left = screen_width-goal_width
-rectangle2Area.top = screen_height-goal_height
+rectangle2Area.top = screen_height-goal_height+20
 
 
-speed = [1,1]
+speed = [15,15]
 score = 0
 score2 = 0
 
@@ -184,23 +184,23 @@ while True:
     #player 2 moves
     pressings2 = pygame.key.get_pressed()
     if pressings2[K_a] and player2Area.left > 0:
-        player2Area.move_ip((-1,0))
+        player2Area.move_ip((-3,0))
     if pressings2[K_d] and player2Area.left < screen_width-player_width:
-        player2Area.move_ip((1,0))
+        player2Area.move_ip((3,0))
     if pressings2[K_s] and player2Area.top < screen_height-player_height:
-        player2Area.move_ip((0,1))
+        player2Area.move_ip((0,3))
     if pressings2[K_w] and player2Area.top > 0:
-        player2Area.move_ip((0,-1))
+        player2Area.move_ip((0,-3))
     #player 1 moves
     pressings1 = pygame.key.get_pressed()
     if pressings1[K_LEFT] and player1Area.left > 0:
-        player1Area.move_ip((-1,0))
+        player1Area.move_ip((-3,0))
     if pressings1[K_RIGHT] and player1Area.left < screen_width-player_width:
-        player1Area.move_ip((1,0))
+        player1Area.move_ip((3,0))
     if pressings1[K_DOWN] and player1Area.top < screen_height-player_height:
-        player1Area.move_ip((0,1))
+        player1Area.move_ip((0,3))
     if pressings1[K_UP] and player1Area.top > 0:
-        player1Area.move_ip((0,-1))
+        player1Area.move_ip((0,-3))
 
     if score == 3:
         player1_win_text = font2.render(f"Player 1 WINNER:", True, (255, 255, 255))

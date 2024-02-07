@@ -1,0 +1,45 @@
+UIXmanager:
+
+<UIXmanager>:
+    StartScreen:
+    GameScreen:
+
+<StartScreen>:
+    name: "start_screen"
+    StartScreenBase:
+
+<StartScreenBase@BoxLayout>:
+    orientation: 'vertical'
+    HeadlineLabel:
+        text: 'VaihdeVelho'
+        background_color: 1, 0, 0, 1
+    StartScreenLayout:
+
+<HeadlineLabel@Label+BackgroundColor>:
+    size_hint: 1, 0.1
+    background_color: 0, 0, 0, 0
+
+<BackgroundColor@Widget>:
+    background_color: 1, 1, 1, 1
+    canvas.before:
+        Color:
+            rgba: root.background_color
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+<StartScreenLayout>:
+    Button:
+        size_hint: 0.4,0.4
+        text: "Start"
+        color: 1,0,1,1
+        on_press: app.root.current = "game_screen"
+    
+<GameScreen>:
+    name: "game_screen"
+    GameScreenLayout:
+
+<GameScreenLayout>:
+    Button:
+        text: "Game1"
+        on_press: app.root.current = "start_screen"
